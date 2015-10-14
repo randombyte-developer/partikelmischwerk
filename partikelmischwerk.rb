@@ -13,6 +13,7 @@ class ParticleWindow < Gosu::Window
 		$height = height
 		@font = Gosu::Font.new(10)
 		@particles = []
+		@running = true
 		$r = Random.new
 		@controller = Parser.new.parse_file("./SimpleDemo.json")
 		# puts @controller
@@ -23,12 +24,15 @@ class ParticleWindow < Gosu::Window
 		close if id == Gosu::KbEscape
 		@particles.clear if id == Gosu::KbC
 		@frame = 1 if id == Gosu::KbS
+		@running = !@running if id == Gosu::KbSpace
 	end
 
 	def update
-		@controller.update(@particles, @frame)
-		@particles.each(&:update)
-		@frame += 1
+		if @running
+			@controller.update(@particles, @frame)
+			@particles.each(&:update)
+			@frame += 1
+		end
 		@particles.delete_if { |particle| !particle.x.between?(0, $width) || !particle.y.between?(-$height, $height) }
 		@frame = 1 if @particles.size == 0
 	end
@@ -36,6 +40,10 @@ class ParticleWindow < Gosu::Window
 	def draw
 		@font.draw("Particles: #{@particles.size}, Frame: #{@frame}, Fps: #{Gosu.fps}", 10, $height - 10, 0)
 		@particles.each(&:draw)
+		if !@running
+			Gosu.draw_line(mouse_x, 0, Gosu::Color::RED, mouse_x, $height, Gosu::Color::RED)
+			Gosu.draw_line(0, mouse_y, Gosu::Color::RED, $width, mouse_y, Gosu::Color::RED)
+		end
 	end
 end
 
