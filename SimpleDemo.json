@@ -1,0 +1,19 @@
+{
+  "name": "SimpleDemo",
+  "description": "Demonstrating the creation of a JSON file for partikelmischwerk.",
+  "duration": 600,
+  "timeline": [
+    {
+      "at": 1,
+      "x": "0~w",
+      "y": "0~h",
+      "xd": "-3~3",
+      "yd": "-8.0~-5.0",
+      "r": "0~255",
+      "g": "0~255",
+      "b": "0~255",
+      "n": 1000,
+      "d": 1
+    }
+  ]
+}
