@@ -22,7 +22,7 @@ class ParticleWindow < Gosu::Window
 	def button_down(id)
 		close if id == Gosu::KbEscape
 		@particles.clear if id == Gosu::KbC
-		@frame = 0 if id == Gosu::KbS
+		@frame = 1 if id == Gosu::KbS
 	end
 
 	def update
@@ -30,6 +30,7 @@ class ParticleWindow < Gosu::Window
 		@particles.each(&:update)
 		@frame += 1
 		@particles.delete_if { |particle| !particle.x.between?(0, $width) || !particle.y.between?(-$height, $height) }
+		@frame = 1 if @particles.size == 0
 	end
 
 	def draw
