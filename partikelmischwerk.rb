@@ -26,12 +26,6 @@ class ParticleWindow < Gosu::Window
 	end
 
 	def update
-		# @intensity += 1 if Gosu.button_down?(Gosu::KbUp)
-		# @intensity -= 1 if Gosu.button_down?(Gosu::KbDown) && @intensity > 1
-		# if Gosu.button_down?(Gosu::MsLeft)
-		# 	particle_spawner(mouse_x, mouse_y, -8..8, 3..4, random_color(), @intensity)
-		# end
-		# @particles.each(&:update)
 		@controller.update(@particles, @frame)
 		@particles.each(&:update)
 		@frame += 1
@@ -40,7 +34,6 @@ class ParticleWindow < Gosu::Window
 
 	def draw
 		@font.draw("Particles: #{@particles.size}, Frame: #{@frame}, Fps: #{Gosu.fps}", 10, $height - 10, 0)
-		Gosu.draw_rect(mouse_x, mouse_y, 10, 10, Gosu::Color.new(255, 255, 255, 0))
 		@particles.each(&:draw)
 	end
 end
